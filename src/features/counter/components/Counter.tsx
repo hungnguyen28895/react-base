@@ -1,12 +1,12 @@
 import clsx from 'clsx';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { RootState } from '@/stores/types';
-
-import { decrement, increment } from '../stores';
+import { useJokes } from '../api/getJokes';
+import { decrement, increment, selectCount } from '../stores';
 
 export const Counter = () => {
-  const count = useSelector((state: RootState) => state.counter.value);
+  const count = useSelector(selectCount);
+  const jokesQuery = useJokes();
   const dispatch = useDispatch();
 
   return (
@@ -28,6 +28,14 @@ export const Counter = () => {
       >
         -
       </button>
+      {jokesQuery.data?.map((joke, index) => {
+        return (
+          <span key={index}>
+            {joke.punchline}
+            <br />
+          </span>
+        );
+      })}
     </div>
   );
 };
