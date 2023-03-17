@@ -6,7 +6,8 @@ import { AppProvider } from './providers/app';
 function App() {
   return (
     <AppProvider>
-      {/* <AppRoutes /> */} <Counter></Counter>
+      {/* <AppRoutes /> */}
+      <Counter></Counter>
     </AppProvider>
   );
 }
