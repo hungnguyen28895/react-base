@@ -1,60 +1,61 @@
 import clsx from 'clsx';
 import * as React from 'react';
 
-import { Spinner } from '@/components/Elements/Spinner';
+const colors = {
+  lightBg: 'bg-[#005BBE00]',
+  hoverLightBg: 'hover:bg-[#005BBE0A]',
+  focusLightBg: 'focus:bg-[#005BBE1F]',
+  pressedLightBg: 'active:bg-[#005BBE3D]',
+  outlinedBorder: 'border border-solid border-[#1B1B1F1F]',
+  disabledText: 'disabled:text-[#1B1B1F61]',
+};
 
 const variants = {
-  primary: 'bg-blue-600 text-white',
-  inverse: 'bg-white text-blue-600',
-  danger: 'bg-red-600 text-white',
+  text: clsx(
+    colors['lightBg'],
+    'text-primary-50-main',
+    colors['hoverLightBg'],
+    colors['focusLightBg'],
+    colors['pressedLightBg'],
+    colors['disabledText']
+  ),
+  outlined: clsx(
+    colors['lightBg'],
+    'text-primary-50-main',
+    colors['hoverLightBg'],
+    colors['focusLightBg'],
+    colors['pressedLightBg'],
+    colors['disabledText'],
+    colors['outlinedBorder']
+  ),
+  contained:
+    'bg-primary-50-main text-neutral-100 hover:bg-primary-40 focus:bg-primary-30 active:bg-primary-30 disabled:bg-neutral-95',
+  elements: 'bg-red-600 text-white',
+  icon: 'bg-transparent px-0 py-0 hover:fill-primary-30 focus:fill-primary-40 active:fill-primary-30',
+  link: 'bg-red-600 text-white',
+  box: 'bg-red-600 text-white',
 };
-
-const sizes = {
-  sm: 'py-2 px-4 text-sm',
-  md: 'py-2 px-6 text-md',
-  lg: 'py-3 px-8 text-lg',
-};
-
-type IconProps =
-  | { startIcon: React.ReactElement; endIcon?: never }
-  | { endIcon: React.ReactElement; startIcon?: never }
-  | { endIcon?: undefined; startIcon?: undefined };
 
 export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: keyof typeof variants;
-  size?: keyof typeof sizes;
   isLoading?: boolean;
-} & IconProps;
+};
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  (
-    {
-      type = 'button',
-      className = '',
-      variant = 'primary',
-      size = 'md',
-      isLoading = false,
-      startIcon,
-      endIcon,
-      ...props
-    },
-    ref
-  ) => {
+  ({ type = 'button', className = '', variant = 'text', ...props }, ref) => {
     return (
       <button
         ref={ref}
         type={type}
         className={clsx(
-          'flex justify-center items-center border border-gray-300 disabled:opacity-70 disabled:cursor-not-allowed rounded-md shadow-sm font-medium focus:outline-none hover:opacity-80',
+          'opacity-100 rounded-[6px] font-bold text-[14px] leading-[19px] tracking-normal text-left bg-origin-padding bg-clip-padding bg-no-repeat',
+          variant === 'icon' ? 'px-0 py-0' : 'px-6 py-3',
           variants[variant],
-          sizes[size],
           className
         )}
         {...props}
       >
-        {isLoading && <Spinner size="sm" className="text-current" />}
-        {!isLoading && startIcon}
-        <span className="mx-2">{props.children}</span> {!isLoading && endIcon}
+        <span>{props.children}</span>
       </button>
     );
   }

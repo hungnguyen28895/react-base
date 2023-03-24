@@ -1,13 +1,10 @@
-// import './App.css';
-
-import { Counter } from './features/counter';
-import { AppProvider } from './providers/app';
+import { AppProvider } from '@/providers/app';
+import { AppRoutes } from '@/routes';
 
 function App() {
   return (
     <AppProvider>
-      {/* <AppRoutes /> */}
-      <Counter></Counter>
+      <AppRoutes />
     </AppProvider>
   );
 }

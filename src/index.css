@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+    @apply flex flex-col bg-neutral-95 h-full m-0 p-0 antialiased;
+}
+
+#root {
+    @apply flex flex-1 flex-col box-border;
+}

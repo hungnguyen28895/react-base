@@ -1,19 +1,18 @@
-import { PencilIcon } from '@heroicons/react/outline';
-import clsx from 'clsx';
 import { useDispatch, useSelector } from 'react-redux';
 import * as z from 'zod';
 
+import { ReactComponent as OpenLogo } from '@/assets/open.svg';
 import { Button } from '@/components/Elements/Button';
 import { Form } from '@/components/Form/Form';
 import { FormDrawer } from '@/components/Form/FormDrawer';
 import { InputField } from '@/components/Form/InputField';
 
-import { useJokes } from '../api/getJokes';
+// import { useJokes } from '../api/getJokes';
 import { decrement, increment, selectCount } from '../stores';
 
 export const Counter = () => {
   const count = useSelector(selectCount);
-  const jokesQuery = useJokes();
+  // const jokesQuery = useJokes();
   const dispatch = useDispatch();
   const schema = z.object({
     email: z.string().min(1, 'Required'),
@@ -29,34 +28,24 @@ export const Counter = () => {
   };
 
   return (
-    <div>
+    <>
       <div>{count}</div>
-      <button
-        className={clsx(
-          'flex justify-center items-center border border-gray-300 disabled:opacity-70 disabled:cursor-not-allowed rounded-md shadow-sm font-medium focus:outline-none hover:opacity-80'
-        )}
-        onClick={() => dispatch(increment())}
-      >
-        +
-      </button>
-      <button
-        className={clsx(
-          'flex justify-center items-center border border-gray-300 disabled:opacity-70 disabled:cursor-not-allowed rounded-md shadow-sm font-medium focus:outline-none hover:opacity-80'
-        )}
-        onClick={() => dispatch(decrement())}
-      >
-        -
-      </button>
+      <Button className="mx-2" variant="text" onClick={() => dispatch(increment())}>
+        UP
+      </Button>
+      <Button className="mx-2" variant="contained" onClick={() => dispatch(decrement())}>
+        DOWN
+      </Button>
       <FormDrawer
         isDone={true}
         triggerButton={
-          <Button startIcon={<PencilIcon className="h-4 w-4" />} size="sm">
-            Update Profile
+          <Button variant="icon" className="">
+            <OpenLogo className="fill-[rgba(27,27,31,0.48)] hover:fill-primary-30" />
           </Button>
         }
         title="Update Profile"
         submitButton={
-          <Button form="update-profile" type="submit" size="sm">
+          <Button form="update-profile" type="submit">
             Submit
           </Button>
         }
@@ -104,14 +93,14 @@ export const Counter = () => {
           )}
         </Form>
       </FormDrawer>
-      {jokesQuery.data?.map((joke, index) => {
+      {/* {jokesQuery.data?.map((joke, index) => {
         return (
           <span key={index}>
             {joke.punchline}
             <br />
           </span>
         );
-      })}
-    </div>
+      })} */}
+    </>
   );
 };

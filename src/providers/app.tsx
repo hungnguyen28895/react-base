@@ -29,6 +29,8 @@ type AppProviderProps = {
 };
 
 export const AppProvider = ({ children }: AppProviderProps) => {
+  console.log(children);
+
   return (
     <React.Suspense
       fallback={
